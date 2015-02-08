@@ -1,28 +1,27 @@
-<?php $link = mysql_connect('192.168.59.103', 'admin', 'xuFjyn9NPeff'); ?>
-<?php require 'vendor/autoload.php'; ?>
-<html>
-<head>
-	<title>Hello world!</title>
-	<style>
-	body {
-		background-color: white;
-		text-align: center;
-		padding: 50px;
-		font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-	}
+<?php $link = mysql_connect('192.168.59.103', 'admin', '3HAc6NreaLdH'); ?>
+<?php 
+require 'vendor/autoload.php'; 
 
-	#logo {
-		margin-bottom: 40px;
-	}
-	</style>
-</head>
-<body>
-	<img id="logo" src="logo.png" />
-	<h1><?php echo "Hello world!"; ?></h1>
-	<?php if(!$link) { ?>
-		<h2>Can't connect to local MySQL Server!</h2>
-	<?php } else { ?>
-		<h2>MySQL Server version: <?php echo mysql_get_server_info(); ?></h2>
-	<?php } ?>
-</body>
-</html>
+
+$app = new \Slim\Slim();
+
+$app->get('/hello/:name', function ($name) {
+    // echo "Hello, $name";
+
+    // $c = mysql_connect('192.168.59.103', 'admin', 'xuFjyn9NPeff');
+	mysql_select_db("resultados");
+	$query = "SELECT * FROM resultados WHERE rut=".$name;
+	$resultado = mysql_query($query);
+	$fila = mysql_fetch_assoc($resultado);
+	header("Content-Type: application/json");
+	$output = json_decode($fila['datos']);
+	echo json_encode($output);
+	exit;
+	//echo htmlentities($fila['datos']);
+});
+
+
+
+
+$app->run();
+?>
