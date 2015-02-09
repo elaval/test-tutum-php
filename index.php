@@ -1,4 +1,3 @@
-<?php $link = mysql_connect('192.168.59.103', 'admin', '3HAc6NreaLdH'); ?>
 <?php 
 require 'vendor/autoload.php'; 
 
@@ -8,6 +7,7 @@ $app = new \Slim\Slim();
 $app->get('/hello/:name', function ($name) {
     // echo "Hello, $name";
 
+	$link = mysql_connect('192.168.59.103', 'admin', '3HAc6NreaLdH');
     // $c = mysql_connect('192.168.59.103', 'admin', 'xuFjyn9NPeff');
 	mysql_select_db("resultados");
 	$query = "SELECT * FROM resultados WHERE rut=".$name;
