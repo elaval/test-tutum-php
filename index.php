@@ -3,8 +3,16 @@ require 'vendor/autoload.php';
 
 
 $app = new \Slim\Slim();
+$app->get('/foo', function () use ($app) {
+    $callback = $app->request()->get('callback');
+    $data = array('foo' => 'bar');
+    $app->contentType('application/javascript');
+    echo sprintf("%s(%s)", $callback, json_encode($data));
+});
 
-$app->get('/hello/:name', function ($name) {
+$app->get('/resultados/:rut', function ($rut) use ($app) {
+	$callback = $app->request()->get('callback');
+
     // echo "Hello, $name";
     // echo($_SERVER['MYSQL_SERVER']);
 
@@ -32,18 +40,15 @@ $app->get('/hello/:name', function ($name) {
 		echo("Database access not configured (pass)");
 	}
 
-
 	$link = mysql_connect($mysqlServer, $mysqlUser, $mysqlPass);
-    // $c = mysql_connect('192.168.59.103', 'admin', 'xuFjyn9NPeff');
 	mysql_select_db("resultados");
 	$query = "SELECT * FROM resultados WHERE rut=".$name;
 	$resultado = mysql_query($query);
 	$fila = mysql_fetch_assoc($resultado);
-	header("Content-Type: application/json");
+	header("Content-Type: application/javascript");
 	$output = json_decode($fila['datos']);
-	echo json_encode($output);
+	echo sprintf("%s(%s)", $callback, json_encode($output));
 	exit;
-	//echo htmlentities($fila['datos']);
 });
 
 $app->get('/test', function () {
