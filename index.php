@@ -9,7 +9,7 @@ $app->get('/hello/:name', function ($name) {
 
 	// This check prevents access to debug front controllers that are deployed by accident to production servers.
 	// Feel free to remove this, extend it, or make something more sophisticated.
-	if (isset($_SERVER['MYSQL_SERVER'])) {
+	if (isset($_SERVER['MYSQL_SERVER']) && !empty($_SERVER['MYSQL_SERVER'])) { 
 		$mysqlserver = $_SERVER['MYSQL_SERVER'];
 	} else {
 		$mysqlserver = '192.168.59.103';
