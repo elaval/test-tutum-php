@@ -6,18 +6,34 @@ $app = new \Slim\Slim();
 
 $app->get('/hello/:name', function ($name) {
     // echo "Hello, $name";
-    echo($_SERVER['MYSQL_SERVER']);
+    // echo($_SERVER['MYSQL_SERVER']);
 
 	// This check prevents access to debug front controllers that are deployed by accident to production servers.
 	// Feel free to remove this, extend it, or make something more sophisticated.
 	if (isset($_SERVER['MYSQL_SERVER']) && !empty($_SERVER['MYSQL_SERVER'])) { 
-		$mysqlserver = $_SERVER['MYSQL_SERVER'];
+		$mysqlServer = $_SERVER['MYSQL_SERVER'];
 	} else {
-		$mysqlserver = '192.168.59.103';
+		echo("DATABASE SERVER NOT SPECIFIED");
+	}
+
+	// This check prevents access to debug front controllers that are deployed by accident to production servers.
+	// Feel free to remove this, extend it, or make something more sophisticated.
+	if (isset($_SERVER['MYSQL_USER']) && !empty($_SERVER['MYSQL_USER'])) { 
+		$mysqlUser = $_SERVER['MYSQL_USER'];
+	} else {
+		echo("Database access not configured (user)");
+	}
+
+	// This check prevents access to debug front controllers that are deployed by accident to production servers.
+	// Feel free to remove this, extend it, or make something more sophisticated.
+	if (isset($_SERVER['MYSQL_PASS']) && !empty($_SERVER['MYSQL_PASS'])) { 
+		$mysqlPass = $_SERVER['MYSQL_PASS'];
+	} else {
+		echo("Database access not configured (pass)");
 	}
 
 
-	$link = mysql_connect($mysqlserver, 'admin', '3HAc6NreaLdH');
+	$link = mysql_connect($mysqlserver, $mysqlUser, $mysqlPass);
     // $c = mysql_connect('192.168.59.103', 'admin', 'xuFjyn9NPeff');
 	mysql_select_db("resultados");
 	$query = "SELECT * FROM resultados WHERE rut=".$name;
