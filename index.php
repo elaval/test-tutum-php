@@ -42,7 +42,7 @@ $app->get('/resultados/:rut', function ($rut) use ($app) {
 
 	$link = mysql_connect($mysqlServer, $mysqlUser, $mysqlPass);
 	mysql_select_db("resultados");
-	$query = "SELECT * FROM resultados WHERE rut=".$name;
+	$query = "SELECT * FROM resultados WHERE rut=".$rut;
 	$resultado = mysql_query($query);
 	$fila = mysql_fetch_assoc($resultado);
 	header("Content-Type: application/javascript");
