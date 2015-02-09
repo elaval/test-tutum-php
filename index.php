@@ -33,7 +33,7 @@ $app->get('/hello/:name', function ($name) {
 	}
 
 
-	$link = mysql_connect($mysqlserver, $mysqlUser, $mysqlPass);
+	$link = mysql_connect($mysqlServer, $mysqlUser, $mysqlPass);
     // $c = mysql_connect('192.168.59.103', 'admin', 'xuFjyn9NPeff');
 	mysql_select_db("resultados");
 	$query = "SELECT * FROM resultados WHERE rut=".$name;
