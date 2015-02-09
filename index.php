@@ -7,7 +7,17 @@ $app = new \Slim\Slim();
 $app->get('/hello/:name', function ($name) {
     // echo "Hello, $name";
 
-	$link = mysql_connect('192.168.59.103', 'admin', '3HAc6NreaLdH');
+	// This check prevents access to debug front controllers that are deployed by accident to production servers.
+	// Feel free to remove this, extend it, or make something more sophisticated.
+	if (isset($MYSQL_SERVER['MYSQL_SERVER'])
+	{
+		$mysqlserver = $MYSQL_SERVER['MYSQL_SERVER'];
+	} else {
+		$mysqlserver = '192.168.59.103';
+	}
+
+
+	$link = mysql_connect($mysqlserver, 'admin', '3HAc6NreaLdH');
     // $c = mysql_connect('192.168.59.103', 'admin', 'xuFjyn9NPeff');
 	mysql_select_db("resultados");
 	$query = "SELECT * FROM resultados WHERE rut=".$name;
