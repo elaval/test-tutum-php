@@ -32,7 +32,7 @@ $app->get('/hello/:name', function ($name) {
 
 $app->get('/test', function () {
 	$output = json_decode("{estado:'ok'}");
-	echo json_encode($output);
+	echo json_encode($_SERVER);
 });
 
 
