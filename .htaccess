@@ -1,4 +1,3 @@
-PassEnv HTTP_ELM
 PassEnv MYSQL_SERVER
 PassEnv MYSQL_USER
 PassEnv MYSQL_PASS
