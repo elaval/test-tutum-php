@@ -20,6 +20,11 @@ $app->get('/hello/:name', function ($name) {
 	//echo htmlentities($fila['datos']);
 });
 
+$app->get('/test', function ($name) {
+	$output = json_decode("{estado:'ok'}");
+	echo json_encode($output);
+});
+
 
 
 
