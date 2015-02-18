@@ -126,6 +126,7 @@ class ReCaptcha
             )
         );
         $answers           = json_decode( $getResponse, true );
+        
         $recaptchaResponse = new ReCaptchaResponse();
 
         if ( trim( $answers [ 'success' ] ) == true )
@@ -135,7 +136,7 @@ class ReCaptcha
         else
         {
             $recaptchaResponse->success    = false;
-            $recaptchaResponse->errorCodes = $answers[ 'error-codes' ];
+            //$recaptchaResponse->errorCodes = $answers[ 'error-codes' ];
         }
 
         return $recaptchaResponse;
